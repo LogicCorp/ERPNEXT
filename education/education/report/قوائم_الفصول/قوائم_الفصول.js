@@ -4,7 +4,20 @@
 
 frappe.query_reports["قوائم الفصول"] = {
 	"filters": [
-	
+		{
+			fieldname: "program",
+			label: __("Program"),
+			fieldtype: "Link",
+			options: "Program",
+			reqd:1
+		  },
+		  {
+			fieldname: "academic_year",
+			label: __("Academic Year"),
+			fieldtype: "Link",
+			options: "Academic Year",
+			reqd:1
+		  },
 		
 		{
 		  fieldname: "based_on",

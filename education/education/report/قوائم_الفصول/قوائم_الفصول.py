@@ -12,56 +12,60 @@ def execute(filters=None):
 
 def get_columns(filters):
 
-	columns = [
-		
-		{
-		   "fieldname": "name",
-			"label":_("Name"),
-			"fieldtype": "Data",
-			"width": 400,
-		},
-		
-		
-		{
-			"label": _("Name In Arabic"),
-			"fieldname": "name_arabic",
-			"fieldtype": "Data",
-		
-			"width": 400,
-		},
-	
-		
+    columns = [
+            {
+            "label": _("Name In Arabic"),
+            "fieldname": "name_arabic",
+            "fieldtype": "Data",
+        
+            "width": 400,
+        },
+    
+        {
+           "fieldname": "name",
+            "label":_("Name"),
+            "fieldtype": "Data",
+            "width": 400,
+        }
+        
+        
+    
+        
 
-	]
+    ]
 
-	return columns
+    return columns
 
 def get_data(filters):
-		data = []
-		
-		if filters.get("name_lang")=="Name In Arabic":
-			order_by="full_name_in_arabic"
-		else:	
-			order_by="student_name"
-		
-	
+        data = []
+        
+        if filters.get("name_lang")=="Name In Arabic":
+            order_by="full_name_in_arabic"
+        else:	
+            order_by="student_name"
+        
+    
 
-		students = frappe.db.get_all("Student",  fields=["full_name_in_arabic","student_name","gender"],order_by=order_by)
-	
-		if len(students):
-			if filters.get("based_on")!= "Alphabet":
-				students=arrange_students_by_gender(students,filters.get("based_on"))
-			for student in students:
-				student_data = {}
-				
-				student_data["name"] =student["student_name"]
-				student_data["name_arabic"] =student["full_name_in_arabic"]
+        students = frappe.db.get_all("Student",  fields=["full_name_in_arabic","student_name","gender","name"],order_by=order_by)
+    
+        if len(students):
+            if filters.get("based_on")!= "Alphabet":
+                students=arrange_students_by_gender(students,filters.get("based_on"))
+            for student in students:
+                
+                student_data = {}
+                
+                student_data["name"] =student["student_name"]
+                student_data["name_arabic"] =student["full_name_in_arabic"]
+                if frappe.db.get_value("Program Enrollment",{"student":student["name"],"program":filters.get("program"),"academic_year":filters.get("academic_year")},["name"]):
+                            data.append(student_data)
 
-				data.append(student_data)
-			
-			
 
-			return data
+            
+            
+            
+
+        return data
 
 
 

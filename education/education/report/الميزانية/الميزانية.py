@@ -13,46 +13,20 @@ def execute(filters=None):
 def get_columns(filters):
 
 	columns = [
-		
 		{
-		   "fieldname": "program",
-			"label":_("المرحله"),
-			"fieldtype": "Link",
-			"options":"Program",
+			"label": _("ابناء شهيد او مصاب"),
+			"fieldname": "shahid",
+			"fieldtype": "Int",
 			 "width": 200
-	
-		},
-		
-		
-		{
-			"label": _("بنين"),
-			"fieldname": "male",
-			"fieldtype": "Int",
-			
-			 "width": 100
 		
 		
 		},
+
 		{
-			"label": _("بنات"),
-			"fieldname": "female",
-			"fieldtype": "Int",
-			 "width": 100
-		
-		
-		},{
-			"label": _("جمله"),
-			"fieldname": "total",
-			"fieldtype": "Int",
-			 "width": 100
-		
-		
-		},
-		{
-			"label": _("مسلم"),
-			"fieldname": "muslim",
-			"fieldtype": "Int",
-			 "width": 100
+			"label": _("دمج"),
+			"fieldname": "mirge",
+			"fieldtype": "Int", 
+			"width": 100
 		
 		
 		},
@@ -64,23 +38,54 @@ def get_columns(filters):
 		
 		},
 		{
-			"label": _("دمج"),
-			"fieldname": "mirge",
-			"fieldtype": "Int", 
-			"width": 100
+			"label": _("مسلم"),
+			"fieldname": "muslim",
+			"fieldtype": "Int",
+			 "width": 100
 		
 		
 		},
 		{
-			"label": _("ابناء شهيد او مصاب"),
-			"fieldname": "shahid",
+			"label": _("جمله"),
+			"fieldname": "total",
 			"fieldtype": "Int",
-			 "width": 200
+			 "width": 100
+		
+		
+		},
+		{
+			"label": _("بنات"),
+			"fieldname": "female",
+			"fieldtype": "Int",
+			 "width": 100
+		
+		
+		},	{
+			"label": _("بنين"),
+			"fieldname": "male",
+			"fieldtype": "Int",
+			
+			 "width": 100
 		
 		
 		},
 	
-		
+			{
+		   "fieldname": "program",
+			"label":_("عدد الفصول وفق اللائحه"),
+			"fieldtype": "Link",
+			"options":"Program",
+			 "width": 200
+	
+		},
+			{
+		   "fieldname": "stage",
+			"label":_("المرحله"),
+			"fieldtype": "Link",
+			"options":"Program",
+			 "width": 200
+	
+		},
 
 	]
 

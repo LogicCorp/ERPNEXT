@@ -7,15 +7,11 @@ frappe.query_reports["الميزانية"] = {
 	
 		
 		{
-		  fieldname: "program",
-		  label: __("Program"),
-			
-		  fieldtype: "MultiSelectList",
-      options: "Program",
-      get_data: function (txt) {
-        return frappe.db.get_link_options("Program", txt);
-      },
-		  
+		  fieldname: "stage",
+		  label: __("المرحله"),
+		  fieldtype: "Select",
+      options: ["KINDERGARTEN","SECONDARY","PREPARATORY",""]
+     
 		},
 		
 
