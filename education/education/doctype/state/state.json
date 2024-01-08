@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:state",
  "creation": "2024-01-08 21:54:04.538311",
@@ -22,7 +23,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-08 21:54:04.538311",
+ "modified": "2024-01-08 22:03:59.575689",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "State",

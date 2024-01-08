@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:city",
  "creation": "2024-01-08 21:50:38.428858",
@@ -31,7 +32,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-08 21:54:06.525414",
+ "modified": "2024-01-08 22:03:51.161783",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "City",
