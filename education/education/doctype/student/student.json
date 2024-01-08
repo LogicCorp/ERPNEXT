@@ -10,6 +10,7 @@
  "field_order": [
   "section_break_1",
   "enabled",
+  "actual_academic_year",
   "section_break_3",
   "first_name",
   "middle_name",
@@ -34,9 +35,9 @@
   "address_line_2",
   "pincode",
   "column_break_20",
-  "city",
-  "state",
   "country",
+  "state",
+  "city",
   "relations_tab",
   "section_break_18",
   "guardians",
@@ -192,13 +193,15 @@
   },
   {
    "fieldname": "city",
-   "fieldtype": "Data",
-   "label": "City"
+   "fieldtype": "Link",
+   "label": "City",
+   "options": "City"
   },
   {
    "fieldname": "state",
-   "fieldtype": "Data",
-   "label": "State"
+   "fieldtype": "Link",
+   "label": "State",
+   "options": "State"
   },
   {
    "fieldname": "country",
@@ -278,11 +281,18 @@
    "fieldtype": "Tab Break",
    "label": "Connections",
    "show_dashboard": 1
+  },
+  {
+   "fieldname": "actual_academic_year",
+   "fieldtype": "Link",
+   "label": "Actual Academic Year",
+   "options": "Actual Academic Year",
+   "reqd": 1
   }
  ],
  "image_field": "image",
  "links": [],
- "modified": "2023-02-06 12:25:25.197460",
+ "modified": "2024-01-08 21:54:30.780252",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student",

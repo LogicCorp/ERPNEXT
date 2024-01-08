@@ -9,7 +9,8 @@ frappe.query_reports["قوائم الفصول"] = {
 			label: __("Program"),
 			fieldtype: "Link",
 			options: "Program",
-			reqd:1
+			reqd:1,
+			
 		  },
 		  {
 			fieldname: "academic_year",
