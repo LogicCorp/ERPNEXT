@@ -10,7 +10,6 @@
  "field_order": [
   "section_break_1",
   "enabled",
-  "actual_academic_year",
   "section_break_3",
   "first_name",
   "middle_name",
@@ -281,18 +280,11 @@
    "fieldtype": "Tab Break",
    "label": "Connections",
    "show_dashboard": 1
-  },
-  {
-   "fieldname": "actual_academic_year",
-   "fieldtype": "Link",
-   "label": "Actual Academic Year",
-   "options": "Actual Academic Year",
-   "reqd": 1
   }
  ],
  "image_field": "image",
  "links": [],
- "modified": "2024-01-08 21:54:30.780252",
+ "modified": "2024-01-10 18:56:47.407614",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student",

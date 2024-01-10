@@ -73,8 +73,8 @@ def get_columns(filters):
 			{
 		   "fieldname": "program",
 			"label":_("عدد الفصول وفق اللائحه"),
-			"fieldtype": "Link",
-			"options":"Program",
+			"fieldtype": "Int",
+			
 			 "width": 200
 	
 		},
@@ -93,35 +93,50 @@ def get_columns(filters):
 
 def get_data(filters):
 		data = []
-		
-	
 		filter=set_program_filters(filters)
+		academic_years=frappe.db.get_all("Actual Academic Year",filters=filter, pluck="name")
 	
+		if len(academic_years):
+			for year in academic_years:
+				academic_years_data={}
+				academic_years_data["stage"]=year
 
-		programs = frappe.db.get_all("Program",filters=filter, pluck="name")
-	
-		if len(programs):
-			for program in programs:
-				program_data={}
-				program_data["program"]=program
-				male_count=get_gender_count(program,"Male")
-				program_data["male"]=male_count
-				female_count=get_gender_count(program,"Female")
-				program_data["female"]=female_count
-				program_data["total"]=male_count+female_count
-				muslim=get_religion_count(program,"مسلم")
-				program_data["muslim"]=muslim
-				christian=get_religion_count(program,"مسيحي")
-				program_data["christian"]=christian
-
-				mirge=get_status_count(program,"دمج")
-				program_data["mirge"]=mirge
-				shahid=get_status_count(program,"أبناء شهيد")
-				program_data["shahid"]=shahid
-
-				data.append(program_data)
+				programs = frappe.db.get_all("Program",filters={"actual_academic_year":year}, pluck="name")
 				
-			
+				academic_years_data["program"]=len(programs)if len(programs) else 0
+				if len(programs):
+					male_count=0
+					female_count=0
+					muslim=0
+					christian=0
+					mirge=0
+					shahid=0
+					for program in programs:
+						
+						
+						male=get_gender_count(program,"Male")
+						male_count+=male
+						female=get_gender_count(program,"Female")
+						female_count+=female
+						muslim_count=get_religion_count(program,"مسلم")
+						muslim+=muslim_count
+						christian_count=get_religion_count(program,"مسيحي")
+						christian+=christian_count
+						mirge_count=get_status_count(program,"دمج")
+						mirge+=mirge_count
+						shahid_count=get_status_count(program,"أبناء شهيد")
+						shahid+=shahid_count
+					academic_years_data["male"]=male_count
+					academic_years_data["female"]=female_count
+					academic_years_data["total"]=female_count+male_count
+					academic_years_data["muslim"]=muslim
+					academic_years_data["christian"]=christian
+					academic_years_data["mirge"]=mirge
+					academic_years_data["shahid"]=shahid
+
+				data.append(academic_years_data)
+						
+					
 
 		return data
 
@@ -172,8 +187,8 @@ def arrange_students_by_gender(students, gender_first):
 def set_program_filters(filters):
     program_filters = {}
 
-    if filters.get("program"):
-        program_filters["name"] = ["in", filters.get("program")]
+    if filters.get("actual_academic_year"):
+        program_filters["name"] = ["in", filters.get("actual_academic_year")]
 
 
 

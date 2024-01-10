@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "program_name",
+  "actual_academic_year",
   "department",
   "hero_image",
   "column_break_3",
@@ -65,11 +66,17 @@
    "fieldtype": "Attach Image",
    "hidden": 1,
    "label": "Image"
+  },
+  {
+   "fieldname": "actual_academic_year",
+   "fieldtype": "Link",
+   "label": "Actual Academic Year",
+   "options": "Actual Academic Year"
   }
  ],
  "image_field": "hero_image",
  "links": [],
- "modified": "2024-01-06 15:55:42.275370",
+ "modified": "2024-01-10 18:57:06.877917",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Program",

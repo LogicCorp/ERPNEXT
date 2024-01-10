@@ -2,15 +2,15 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
-frappe.query_reports["الميزانية"] = {
+frappe.query_reports["سجل القيد"] = {
 	"filters": [
 	
 		
 		{
-		  fieldname: "actual_academic_year",
-		  label: __("Actual Academic Year"),
+		  fieldname: "student",
+		  label: __("Student"),
 		  fieldtype: "Link",
-      options: "Actual Academic Year"
+      options: "Student"
      
 		},
 		
