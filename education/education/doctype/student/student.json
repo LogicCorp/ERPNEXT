@@ -16,6 +16,7 @@
   "last_name",
   "column_break_4",
   "naming_series",
+  "entry_type",
   "joining_date",
   "user",
   "student_applicant",
@@ -280,11 +281,18 @@
    "fieldtype": "Tab Break",
    "label": "Connections",
    "show_dashboard": 1
+  },
+  {
+   "fieldname": "entry_type",
+   "fieldtype": "Select",
+   "label": "Entry type",
+   "options": "\n\u0628\u0627\u0642\u064a\n\u0645\u0646\u0642\u0648\u0644\n\u0645\u0633\u062a\u062c\u062f\n\u0645\u0639\u0627\u062f \u0642\u064a\u062f\u0647",
+   "reqd": 1
   }
  ],
  "image_field": "image",
  "links": [],
- "modified": "2024-01-10 18:56:47.407614",
+ "modified": "2024-01-11 18:35:05.675104",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student",

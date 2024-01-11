@@ -90,7 +90,7 @@ def get_columns(filters):
         
         },
         {
-            "label": _("حاله الطالب"),
+            "label": _("حاله القيد"),
             "fieldname": "type",
             "fieldtype": "Data",
              "width": 80
@@ -153,6 +153,7 @@ def get_data(filters):
                 student_data["student"]=student["student_name"]
                 student_data["gender"]=student["gender"]
                 student_data["joining_date"]=student["joining_date"]
+                student_data["type"]=student["entry_type"]
                 student_data["birth_date"]=student["date_of_birth"]
                 student_data["oct_date"]=age_in_detail_on_first_october_date(student["date_of_birth"])
                 student_data["nationality"]=student["nationality"]
