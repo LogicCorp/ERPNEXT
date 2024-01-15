@@ -155,7 +155,7 @@ def get_data(filters):
                 student_data["joining_date"]=student["joining_date"]
                 student_data["type"]=student["entry_type"]
                 student_data["birth_date"]=student["date_of_birth"]
-                student_data["oct_date"]=age_in_detail_on_first_october_date(student["date_of_birth"])
+                student_data["oct_date"]=age_in_detail_on_last_october_date(student["date_of_birth"])
                 student_data["nationality"]=student["nationality"]
                 student_data["relign"]=student["religion"]
                 student_data["city"]=student["city"]
@@ -182,27 +182,34 @@ def get_data(filters):
 
 
 
-def age_in_detail_on_first_october_date(birthday_date):
+def age_in_detail_on_last_october_date(birthday_date):
     """
-    Calculate the age in years, months, and days on the first day of October of the current year.
+    Calculate the age in years, months, and days on the most recent first day of October.
     The birthday is provided as a datetime.date object.
     """
-    # Get the current year
-    current_year = date.today().year
+    # Get today's date
+    today = date.today()
 
-    # Create a date object for the first day of October this year
-    first_october_this_year = date(current_year, 10, 1)
+    # Determine the year for the most recent October 1st
+    if today.month < 10:
+        # If current month is before October, use last year's October
+        october_year = today.year - 1
+    else:
+        # Otherwise, use this year's October
+        october_year = today.year
+
+    # Create a date object for the first day of October in the determined year
+    last_october_first = date(october_year, 10, 1)
 
     # Calculate the difference in years, months, and days
-    years = first_october_this_year.year - birthday_date.year
-    months = first_october_this_year.month - birthday_date.month
-    days = first_october_this_year.day - birthday_date.day
+    years = last_october_first.year - birthday_date.year
+    months = last_october_first.month - birthday_date.month
+    days = last_october_first.day - birthday_date.day
 
     # Adjust for negative months or days
     if days < 0:
         months -= 1
-        # Calculate days based on the previous month
-        days_in_prev_month = (first_october_this_year.replace(day=1) - date(first_october_this_year.year, first_october_this_year.month - 1, 1)).days
+        days_in_prev_month = (last_october_first.replace(day=1) - date(last_october_first.year, last_october_first.month - 1, 1)).days
         days += days_in_prev_month
     if months < 0:
         years -= 1

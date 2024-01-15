@@ -16,6 +16,8 @@
   "column_break_3",
   "date",
   "status",
+  "excused",
+  "reason",
   "leave_application",
   "amended_from"
  ],
@@ -101,15 +103,29 @@
    "fieldtype": "Read Only",
    "label": "Student Mobile Number",
    "options": "Phone"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.status==\"Absent\"",
+   "fieldname": "excused",
+   "fieldtype": "Check",
+   "label": "excused ?"
+  },
+  {
+   "depends_on": "eval:doc.excused==1",
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Reason"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-03-24 00:02:11.005896",
+ "modified": "2024-01-13 18:11:25.788007",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student Attendance",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
@@ -127,8 +143,8 @@
    "write": 1
   }
  ],
- "restrict_to_domain": "",
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "title_field": "student_name"
 }

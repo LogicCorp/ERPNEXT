@@ -113,15 +113,19 @@ def mark_attendance(
 
 	present = json.loads(students_present)
 	absent = json.loads(students_absent)
-
+	
 	for d in present:
 		make_attendance_records(
 			d["student"], d["student_name"], "Present", course_schedule, student_group, date
 		)
 
 	for d in absent:
+		if d["excused"]:
+			excused=1
+		else:
+			excused=0	
 		make_attendance_records(
-			d["student"], d["student_name"], "Absent", course_schedule, student_group, date
+			d["student"], d["student_name"], "Absent", course_schedule, student_group, date,excused
 		)
 
 	frappe.db.commit()
@@ -129,7 +133,7 @@ def mark_attendance(
 
 
 def make_attendance_records(
-	student, student_name, status, course_schedule=None, student_group=None, date=None
+	student, student_name, status, course_schedule=None, student_group=None, date=None,excused=None
 ):
 	"""Creates/Update Attendance Record.
 
@@ -145,9 +149,12 @@ def make_attendance_records(
 			"course_schedule": course_schedule,
 			"student_group": student_group,
 			"date": date,
+			"excused":excused
 		}
 	)
+	
 	if not student_attendance:
+		
 		student_attendance = frappe.new_doc("Student Attendance")
 	student_attendance.student = student
 	student_attendance.student_name = student_name
@@ -155,6 +162,7 @@ def make_attendance_records(
 	student_attendance.student_group = student_group
 	student_attendance.date = date
 	student_attendance.status = status
+	student_attendance.excused=excused
 	student_attendance.save()
 	student_attendance.submit()
 

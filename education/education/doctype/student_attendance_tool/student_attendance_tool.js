@@ -84,7 +84,19 @@ education.StudentsEditor = class StudentsEditor {
 		}
 	}
 	make(frm, students) {
+	
 		var me = this;
+		function toggleExcusedVisibility() {
+			$('.students-check').each(function() {
+				var excusedCheckbox = $(this).closest('.col-sm-3').find('.students-excused');
+				if ($(this).is(':checked')) {
+					excusedCheckbox.closest('.checkbox').hide();
+					
+				} else {
+					excusedCheckbox.closest('.checkbox').show();
+				}
+			});
+		}
 
 		$(this.wrapper).empty();
 		var student_toolbar = $('<p>\
@@ -92,22 +104,26 @@ education.StudentsEditor = class StudentsEditor {
 			<button class="btn btn-xs btn-default btn-remove" style="margin-right: 5px;"></button>\
 			<button class="btn btn-default btn-primary btn-mark-att btn-xs"></button></p>').appendTo($(this.wrapper));
 
-		student_toolbar.find(".btn-add")
+			student_toolbar.find(".btn-add")
 			.html(__('Check all'))
 			.on("click", function() {
 				$(me.wrapper).find('input[type="checkbox"]').each(function(i, check) {
 					if (!$(check).prop("disabled")) {
 						check.checked = true;
+						// Hide the 'excused' checkbox
+						$(this).closest('.col-sm-3').find('.students-excused').closest('.checkbox').hide();
 					}
 				});
 			});
-
+		
 		student_toolbar.find(".btn-remove")
 			.html(__('Uncheck all'))
 			.on("click", function() {
 				$(me.wrapper).find('input[type="checkbox"]').each(function(i, check) {
 					if (!$(check).prop("disabled")) {
 						check.checked = false;
+						// Show the 'excused' checkbox
+						$(this).closest('.col-sm-3').find('.students-excused').closest('.checkbox').show();
 					}
 				});
 			});
@@ -118,21 +134,27 @@ education.StudentsEditor = class StudentsEditor {
 			.on("click", function() {
 				$(me.wrapper.find(".btn-mark-att")).attr("disabled", true);
 				var studs = [];
-				$(me.wrapper.find('input[type="checkbox"]')).each(function(i, check) {
+				
+				$(me.wrapper.find('.students-check')).each(function(i, check) {
+					console.log("Iterating over:", check); // Debugging: Log the element being iterated over
+				
 					var $check = $(check);
+					// Find the corresponding 'students-excused' checkbox
+					var $excusedCheck = $(this).closest('.col-sm-3').find('.students-excused');
 					studs.push({
 						student: $check.data().student,
 						student_name: $check.data().studentName,
 						group_roll_number: $check.data().group_roll_number,
 						disabled: $check.prop("disabled"),
-						checked: $check.is(":checked")
+						checked: $check.is(":checked"),
+						excused: $excusedCheck.is(":checked")  // Capture the excused status
 					});
 				});
-
+				
 				var students_present = studs.filter(function(stud) {
 					return !stud.disabled && stud.checked;
 				});
-
+				console.log(students_present)
 				var students_absent = studs.filter(function(stud) {
 					return !stud.disabled && !stud.checked;
 				});
@@ -163,12 +185,13 @@ education.StudentsEditor = class StudentsEditor {
 						$(me.wrapper.find(".btn-mark-att")).attr("disabled", false);
 					}
 				);
+				
 			});
 
 		// make html grid of students
 		let student_html = '';
 		for (let student of students) {
-			student_html += `<div class="col-sm-3">
+			student_html += `<div class="col-sm-3" style="display: flex;">
 					<div class="checkbox">
 						<label>
 							<input
@@ -181,10 +204,24 @@ education.StudentsEditor = class StudentsEditor {
 							${student.group_roll_number} - ${student.student_name}
 						</label>
 					</div>
+
+					<div class="checkbox">
+					<label>
+						<input
+							type="checkbox"
+							class="students-excused"> excused?
+						
+					</label>
+				</div>
 				</div>`;
 		}
 
 		$(`<div class='student-attendance-checks'>${student_html}</div>`).appendTo(me.wrapper);
+	
+        toggleExcusedVisibility();
+		$(me.wrapper).on('change', '.students-check', function() {
+            toggleExcusedVisibility();
+        });
 	}
 
 	show_empty_state() {
