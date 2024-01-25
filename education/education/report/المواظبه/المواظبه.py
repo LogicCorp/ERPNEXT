@@ -5,200 +5,129 @@ import frappe
 from frappe import _
 
 from datetime import datetime
+
+
 def execute(filters=None):
     columns, data = [], []
     columns = get_columns(filters)
     data = get_data(filters)
     return columns, data
 
-def get_columns(filters):
 
+def get_columns(filters):
     columns = [
-         
-         {
-            "label": _("أغسطس"),
-            "fieldname": "august",
-            "fieldtype": "Int",
-             "width": 70
-        
-        
-        },
-       
-       
-         {
-            "label": _("يوليو"),
-            "fieldname": "july",
-            "fieldtype": "Int",
-             "width": 70
-        
-        
-        },
-         {
-            "label": _("يونيو"),
-            "fieldname": "june",
-            "fieldtype": "Int",
-             "width": 70
-        
-        
-        },
-         {
-            "label": _("مايو"),
-            "fieldname": "may",
-            "fieldtype": "Int",
-             "width": 70
-        
-        
-        },
-         {
-            "label": _("أبريل"),
-            "fieldname": "april",
-            "fieldtype": "Int",
-             "width": 70
-        
-        
-        },
-          
+        {"label": _("أغسطس"), "fieldname": "august", "fieldtype": "Int", "width": 70},
+        {"label": _("يوليو"), "fieldname": "july", "fieldtype": "Int", "width": 70},
+        {"label": _("يونيو"), "fieldname": "june", "fieldtype": "Int", "width": 70},
+        {"label": _("مايو"), "fieldname": "may", "fieldtype": "Int", "width": 70},
+        {"label": _("أبريل"), "fieldname": "april", "fieldtype": "Int", "width": 70},
+        {"label": _("مارس"), "fieldname": "march", "fieldtype": "Int", "width": 70},
+        {"label": _("فبراير"), "fieldname": "februay", "fieldtype": "Int", "width": 70},
+        {"fieldname": "january", "label": _("يناير"), "fieldtype": "Int", "width": 70},
         {
-            "label": _("مارس"),
-            "fieldname": "march",
-            "fieldtype": "Int",
-             "width": 70
-        
-        
-        },	{
-            "label": _("فبراير"),
-            "fieldname": "februay",
-            "fieldtype": "Int",
-             "width": 70
-        
-        
-        },
-    
-            {
-           "fieldname": "january",
-            "label":_("يناير"),
-            "fieldtype": "Int",
-            
-             "width": 70
-    
-        },{
             "label": _("ديسمبر"),
             "fieldname": "december",
             "fieldtype": "Int",
-             "width": 70
-        
-        
+            "width": 70,
         },
-         {
+        {
             "label": _("نوفمبر"),
             "fieldname": "november",
             "fieldtype": "Int",
-             "width": 70
-        
-        
+            "width": 70,
         },
-         {
-            "label": _("أكتوبر"),
-            "fieldname": "october",
-            "fieldtype": "Int",
-             "width": 70
-        
-        
-        },
-         {
+        {"label": _("أكتوبر"), "fieldname": "october", "fieldtype": "Int", "width": 70},
+        {
             "label": _("سبتمبر"),
             "fieldname": "september",
             "fieldtype": "Int",
-             "width": 70
-        
-        
+            "width": 70,
         },
-            {
-           "fieldname": "type",
-            "label":_("بعذر /بدون عذر"),
+        {
+            "fieldname": "type",
+            "label": _("بعذر /بدون عذر"),
             "fieldtype": "Data",
-            
-             "width": 150
-    
+            "width": 150,
         },
-            {
-           "fieldname": "student",
-            "label":_("اسم التلميذ"),
+        {
+            "fieldname": "student",
+            "label": _("اسم التلميذ"),
             "fieldtype": "Data",
-            
-             "width": 200
-    
+            "width": 200,
         },
-
     ]
 
     return columns
 
+
 def get_data(filters):
-        data = []
-        
-        students=get_students_by_program(filters.get("program"))
-    
-        
-        
-    
-        date_dict={
-           "january":get_dynamic_academic_month_range("january"),
-           "februay":get_dynamic_academic_month_range("february"),
-           "march":get_dynamic_academic_month_range("march"),
-           "april":get_dynamic_academic_month_range("april"),
-           "may":get_dynamic_academic_month_range("may"),
-           "june":get_dynamic_academic_month_range("june"),
-           "july":get_dynamic_academic_month_range("july"),
-           "august":get_dynamic_academic_month_range("august"),
-           "september":get_dynamic_academic_month_range("september"),
-           "october":get_dynamic_academic_month_range("october"),
-           "november":get_dynamic_academic_month_range("november"),
-           "december":get_dynamic_academic_month_range("december"),
-         
-      
+    data = []
 
-          
+    students = get_students_by_program(filters.get("program"))
 
-        }
-        date_durrations=["january","februay","march","april","may","june","july","august","september","october","november","december"]
-       
-        if len(students):
-            for student in students:
-                student_data={}
-                student_data["student"]=frappe.db.get_value("Student",student,"student_name")
-                student_data["indent"]=0
-                total_month_data=[]
-                types=["بعذر","بدون عذر"]
-                
-                for type in types:
-                    month_data={}
-                    month_data["type"]=type
-                    month_data["indent"]=1
-                    
-                    for date in date_durrations:
-                       
-                        with_ex,without_ex=get_absent_for_student(date_dict[date][0],date_dict[date][1],student)
-                            
-                        if type== "بعذر":
-                            month_data[date]=with_ex
-                        else:
-                            month_data[date]=without_ex 
-                    
-                    total_month_data.append(month_data)
+    date_dict = {
+        "january": get_dynamic_academic_month_range("january"),
+        "februay": get_dynamic_academic_month_range("february"),
+        "march": get_dynamic_academic_month_range("march"),
+        "april": get_dynamic_academic_month_range("april"),
+        "may": get_dynamic_academic_month_range("may"),
+        "june": get_dynamic_academic_month_range("june"),
+        "july": get_dynamic_academic_month_range("july"),
+        "august": get_dynamic_academic_month_range("august"),
+        "september": get_dynamic_academic_month_range("september"),
+        "october": get_dynamic_academic_month_range("october"),
+        "november": get_dynamic_academic_month_range("november"),
+        "december": get_dynamic_academic_month_range("december"),
+    }
+    date_durrations = [
+        "january",
+        "februay",
+        "march",
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november",
+        "december",
+    ]
 
-                    
+    if len(students):
+        for student in students:
+            student_data = {}
+            student_data["student"] = frappe.db.get_value(
+                "Student", student, "student_name"
+            )
+            student_data["indent"] = 0
+            total_month_data = []
+            types = ["بعذر", "بدون عذر"]
 
-                data.append(student_data)
-                data.extend(total_month_data)
-                        
-                    
+            for type in types:
+                month_data = {}
+                month_data["type"] = type
+                month_data["indent"] = 1
 
-        return data
+                for date in date_durrations:
+                    with_ex, without_ex = get_absent_for_student(
+                        date_dict[date][0], date_dict[date][1], student
+                    )
+
+                    if type == "بعذر":
+                        month_data[date] = with_ex
+                    else:
+                        month_data[date] = without_ex
+
+                total_month_data.append(month_data)
+
+            data.append(student_data)
+            data.extend(total_month_data)
+
+    return data
 
 
-   
-def get_students_by_program(program=None,academic_year=None):
+def get_students_by_program(program=None, academic_year=None):
     """
     Fetches all students. Optionally filters students enrolled in a specific program and/or academic year.
 
@@ -235,13 +164,33 @@ def get_students_by_program(program=None,academic_year=None):
         students = frappe.db.sql("SELECT name FROM `tabStudent`", as_dict=True)
 
     # Extract student names using pluck
-    student_names = [student['name'] for student in students]
+    student_names = [student["name"] for student in students]
     return student_names
-   
-def get_absent_for_student(from_date,to_date,name):
-    with_ex=frappe.db.count('Student Attendance', {'docstatus': 1,"status":"Absent","date":["between",[from_date,to_date]],"student":name,"excused":1})
-    without_ex=frappe.db.count('Student Attendance', {'docstatus': 1,"status":"Absent","date":["between",[from_date,to_date]],"student":name,"excused":0})
-    return with_ex,without_ex
+
+
+def get_absent_for_student(from_date, to_date, name):
+    with_ex = frappe.db.count(
+        "Student Attendance",
+        {
+            "docstatus": 1,
+            "status": "Absent",
+            "date": ["between", [from_date, to_date]],
+            "student": name,
+            "excused": 1,
+        },
+    )
+    without_ex = frappe.db.count(
+        "Student Attendance",
+        {
+            "docstatus": 1,
+            "status": "Absent",
+            "date": ["between", [from_date, to_date]],
+            "student": name,
+            "excused": 0,
+        },
+    )
+    return with_ex, without_ex
+
 
 def get_dynamic_academic_month_range(month_name):
     # Get the current year and month
@@ -250,9 +199,18 @@ def get_dynamic_academic_month_range(month_name):
 
     # Dictionary of month names to their number
     months = {
-        "january": 1, "february": 2, "march": 3, "april": 4,
-        "may": 5, "june": 6, "july": 7, "august": 8,
-        "september": 9, "october": 10, "november": 11, "december": 12
+        "january": 1,
+        "february": 2,
+        "march": 3,
+        "april": 4,
+        "may": 5,
+        "june": 6,
+        "july": 7,
+        "august": 8,
+        "september": 9,
+        "october": 10,
+        "november": 11,
+        "december": 12,
     }
 
     # Check if the month name is valid
@@ -285,13 +243,10 @@ def get_dynamic_academic_month_range(month_name):
         return [f"{year}-{month_num:02d}-01", f"{year}-{month_num:02d}-30"]
 
 
-
 def set_student_filters(filters):
     student_filters = {}
 
     if filters.get("student"):
         student_filters["name"] = ["in", filters.get("student")]
-
-
 
     return student_filters

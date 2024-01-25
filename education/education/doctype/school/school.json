@@ -1,39 +1,31 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:actual_academic_year",
- "creation": "2024-01-08 21:48:48.962294",
+ "autoname": "field:school",
+ "creation": "2024-01-20 14:41:10.330444",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "actual_academic_year",
-  "academic_year_program"
+  "school"
  ],
  "fields": [
   {
-   "fieldname": "actual_academic_year",
+   "fieldname": "school",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Actual Academic Year",
+   "label": "School",
    "reqd": 1,
    "unique": 1
-  },
-  {
-   "fieldname": "academic_year_program",
-   "fieldtype": "Table",
-   "label": "Academic Year Program",
-   "options": "Academic Year Program",
-   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-19 17:22:50.902938",
+ "modified": "2024-01-20 14:41:10.330444",
  "modified_by": "Administrator",
  "module": "Education",
- "name": "Actual Academic Year",
+ "name": "School",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [

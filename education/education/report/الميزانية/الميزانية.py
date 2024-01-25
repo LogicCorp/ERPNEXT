@@ -101,7 +101,7 @@ def get_data(filters):
 				academic_years_data={}
 				academic_years_data["stage"]=year
 
-				programs = frappe.db.get_all("Program",filters={"actual_academic_year":year}, pluck="name")
+				programs = frappe.db.get_all("Academic Year Program",filters={"parent":year}, pluck="program")
 				
 				academic_years_data["program"]=len(programs)if len(programs) else 0
 				if len(programs):

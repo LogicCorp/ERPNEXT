@@ -3,6 +3,8 @@
 
 frappe.ui.form.on('Student', {
 	refresh: function(frm) {
+	
+	   
 		frm.set_query("user", function (doc) {
 			return {
 				filters: {
@@ -24,6 +26,19 @@ frappe.ui.form.on('Student', {
 					frm.set_df_property('student_email_id', 'reqd', 1);
 			}
 		});
+	},
+	date_of_birth:function(frm){
+		if (frm.doc.date_of_birth){
+		frappe.call({
+			method:"age_in_detail_on_last_october_date",
+			doc:frm.doc,
+			args:{"birthday_date":frm.doc.date_of_birth},
+			callback:function(r){
+				
+				if (r.message){
+				frm.set_value("number_of_years_october",r.message)}
+			}
+		})}
 	}
 });
 
@@ -40,3 +55,16 @@ frappe.ui.form.on('Student Guardian', {
 	}
 });
 
+cur_frm.set_query('program', 'siblings',  function(frm, cdt, cdn) {
+	var d = locals[cdt][cdn];
+    return {
+      query:
+        'education.education.doctype.student.student.program',
+		filters:{"parent":d.custom_actual_academic_year}
+    };
+    
+  
+    
+ 
+
+});
