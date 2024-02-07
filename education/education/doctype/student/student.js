@@ -82,7 +82,7 @@ frappe.ui.form.on('Student Sibling', {
 			.then(r => {
 				row.date_of_birth=r.message.date_of_birth // Open
 			})
-			frm.refresh()
+			frm.refresh_field("siblings")
 	}
 });
 cur_frm.set_query('program', 'siblings',  function(frm, cdt, cdn) {
