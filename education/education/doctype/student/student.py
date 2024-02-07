@@ -272,3 +272,16 @@ def program(doctype, txt, searchfield, start, page_len, filters,):
            
     
     return response
+
+
+@frappe.whitelist()
+def get_student_data(student):
+    program=None
+    actual_year=None
+    program_=frappe.db.get_value("Program Enrollment",{"student":student},"program")
+    if program_:
+        program=program_
+        actual=frappe.db.get_value("Academic Year Program",{"program":program},"parent")
+        if actual:
+            actual_year=actual
+    return  actual_year,     program  

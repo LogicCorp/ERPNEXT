@@ -54,7 +54,37 @@ frappe.ui.form.on('Student Guardian', {
 		};
 	}
 });
+frappe.ui.form.on('Student Sibling', {
+	student:(frm,cdt,cdn)=>{
+		let row=locals[cdt][cdn]
+		
+		frappe.call({
+			method: "education.education.doctype.student.student.get_student_data",
+			args: {
+			  student: row.student,
+			
+			},
+		
+			callback: function (r) {
+				
+				if (r.message[0]){
 
+					row.custom_actual_academic_year=r.message[0]
+					
+				}
+				if (r.message[1]){
+					row.program=r.message[1]
+					
+				}
+				
+			}})
+			frappe.db.get_value('Student', row.student, 'date_of_birth')
+			.then(r => {
+				row.date_of_birth=r.message.date_of_birth // Open
+			})
+			frm.refresh_field("siblings")
+	}
+});
 cur_frm.set_query('program', 'siblings',  function(frm, cdt, cdn) {
 	var d = locals[cdt][cdn];
     return {
