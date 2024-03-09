@@ -299,7 +299,7 @@
  ],
  "image_field": "image",
  "links": [],
- "modified": "2024-01-20 00:56:20.429305",
+ "modified": "2024-03-09 21:12:07.616463",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student",
@@ -324,13 +324,16 @@
    "write": 1
   },
   {
+   "create": 1,
+   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "Student",
-   "share": 1
+   "share": 1,
+   "write": 1
   }
  ],
  "show_name_in_global_search": 1,
