@@ -9,6 +9,8 @@ def get_student_dicount(doc,event):
         """
     total_discount = frappe.db.sql(sql_query, (doc.student,), as_dict=True)
     total_discount =total_discount[0].get('total_discount', 0)
+    if not total_discount:
+        total_discount = 0.0
     doc.student_discount = total_discount
 
     doc.actual_total = doc.grand_total - ( doc.grand_total * ((float(total_discount) / 100)))
