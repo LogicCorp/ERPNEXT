@@ -21,7 +21,7 @@ frappe.ui.form.on("Fees", {
 			return{
 				"filters":{
 					"academic_year": frm.doc.academic_year,
-					"program": frm.doc.program,
+					"actual_academic_year": frm.doc.actual_academic_year,
 					"docstatus": 1
 				}
 			};
@@ -103,6 +103,15 @@ frappe.ui.form.on("Fees", {
 			frm.set_value("program_enrollment", "");
 			frm.set_value("program", "");
 			frm.set_value("fee_structure", "");
+			// frappe.call({
+			// 	doc:frm.doc,
+			// 	method:"set_fee_structrue",
+				
+			// 	callback: function(r) {
+			// 	frm.refresh_field("fee_structure")
+				
+			// 	}
+			// });
 		}
 	},
 
