@@ -72,11 +72,14 @@ class ProgramEnrollmentTool(Document):
 	@frappe.whitelist()
 	def enroll_students(self):
 		total = len(self.students)
+
 		for i, stud in enumerate(self.students):
 			frappe.publish_realtime(
 				"program_enrollment_tool", dict(progress=[i + 1, total]), user=frappe.session.user
 			)
+
 			if stud.student:
+				
 				prog_enrollment = frappe.new_doc("Program Enrollment")
 				prog_enrollment.student = stud.student
 				prog_enrollment.student_name = stud.student_name
@@ -89,6 +92,14 @@ class ProgramEnrollmentTool(Document):
 				)
 				prog_enrollment.enrollment_date = self.enrollment_date
 				prog_enrollment.save()
+				siblings = frappe.get_all("Student Sibling",
+				   filters={"student":stud.student},
+				   pluck='name')
+				
+				for seb in siblings:
+					frappe.db.set_value("Student Sibling",seb,"program",self.new_program)
+				
+
 			elif stud.student_applicant:
 				prog_enrollment = enroll_student(stud.student_applicant)
 				prog_enrollment.academic_year = self.academic_year
@@ -97,4 +108,7 @@ class ProgramEnrollmentTool(Document):
 					stud.student_batch_name if stud.student_batch_name else self.new_student_batch
 				)
 				prog_enrollment.save()
+
 		frappe.msgprint(_("{0} Students have been enrolled").format(total))
+
+
