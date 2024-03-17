@@ -193,6 +193,10 @@ doc_events = {
 	"Fees": {
 		"validate": "education.controllers.fees.get_student_dicount",
 		
+	},
+    "Program Enrollment": {
+		"on_submit": "education.controllers.program_enrollment.get_student_actual_academic_year",
+		
 	}
 }
 
