@@ -27,7 +27,7 @@ class Fees(AccountsController):
 	def validate(self):
 		self.calculate_total()
 		self.set_missing_accounts_and_fields()
-		self.validate_enrollment()
+		# self.validate_enrollment()
 
 	def set_missing_accounts_and_fields(self):
 		if not self.company:
