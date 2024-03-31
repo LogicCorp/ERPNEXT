@@ -41,7 +41,7 @@ def get_data(filters):
 
     # Constructing the SQL query based on filters
     sql_query = """
-        SELECT s.full_name_in_arabic, s.student_name, s.name
+        SELECT s.full_name_in_arabic, s.student_name, s.name, s.gender
         FROM `tabStudent` s
         """
     if filters.get("name_lang") == "Name In Arabic":
@@ -59,12 +59,17 @@ def get_data(filters):
     students = frappe.db.sql(sql_query, {"actual_academic_year": filters.get("actual_academic_year")}, as_dict=True)
 
     if students:
+        if len(students):
+
+                if filters.get("based_on")!= "Alphabet":
+                    students=arrange_students_by_gender(students,filters.get("based_on"))
+
         for student in students:
             student_data = {
                 "name": student["student_name"],
                 "name_arabic": student["full_name_in_arabic"]
             }
-
+            
             # Fetching program enrollment data once for each student
             program_enrollment = frappe.db.sql("""
                 SELECT name
