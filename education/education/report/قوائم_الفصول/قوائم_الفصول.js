@@ -9,7 +9,6 @@ frappe.query_reports["قوائم الفصول"] = {
 			label: __("Program"),
 			fieldtype: "Link",
 			options: "Program",
-			reqd:1,
 			
 		  },
 		  {
@@ -17,8 +16,14 @@ frappe.query_reports["قوائم الفصول"] = {
 			label: __("Academic Year"),
 			fieldtype: "Link",
 			options: "Academic Year",
-			reqd:1
 		  },
+		  {
+			fieldname: "actual_academic_year",
+			label: __("Actual Academic Year"),
+			fieldtype: "Link",
+			options: "Actual Academic Year",
+		  },
+		
 		
 		{
 		  fieldname: "based_on",
@@ -34,8 +39,12 @@ frappe.query_reports["قوائم الفصول"] = {
 			options: ["Name In Arabic","Name In English"],
 			default:"Name In Arabic"
 		  },
-  
-
+		  {
+			fieldname: "show_all",
+			label: __("Show All"),
+			fieldtype: "Check",
+			default:0
+		  },
   ],
   tree: true,
 
